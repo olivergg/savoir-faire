@@ -1,0 +1,64 @@
+\documentclass[11pt,a4paper]{article}
+
+\newcommand{\reportTitle}{Titre court (en-tête)}
+\newcommand{\reportSubtitle}{Sous-titre (en-tête)}
+
+\input{preamble_teal.tex}
+
+\begin{document}
+
+\makeTealTitle
+  {Titre principal}
+  {Sous-titre étoffé}
+  {\noindent\begin{infobox}
+   \sffamily
+   \textbf{\large Objet} : décrire en une phrase l'objet du rapport.\\[4pt]
+   \textbf{Périmètre} : préciser le périmètre temporel / fonctionnel.\\[4pt]
+   \textbf{Source} : citer les sources (Slack, Jira, GitHub, fichier source).
+  \end{infobox}}
+
+% ═══════════════════════════════════════════════════════════════════════════
+\section*{Synthèse}
+
+\begin{infobox}[title=Chiffres clés,coltitle=white,colbacktitle=tealPrimary,
+                fonttitle=\bfseries\sffamily]
+\sffamily
+\begin{tabular}{@{}l@{\hspace{2em}}r@{}}
+Période            & ... \\
+Élément A          & \textbf{N} \\
+Élément B          & \textbf{N} \\
+\end{tabular}
+\end{infobox}
+
+% ═══════════════════════════════════════════════════════════════════════════
+\section*{Détail}
+
+\begin{ticketbox}{Identifiant -- Titre du sujet}
+Contenu du cartouche.
+\begin{itemize}
+\item Point 1
+\item Point 2
+\end{itemize}
+\end{ticketbox}
+
+% ═══════════════════════════════════════════════════════════════════════════
+\section*{Observations factuelles}
+
+\begin{infobox}
+\sffamily
+\begin{enumerate}[leftmargin=*]
+\item Observation 1.
+\item Observation 2.
+\end{enumerate}
+\end{infobox}
+
+% ═══════════════════════════════════════════════════════════════════════════
+\section*{Ce que ce rapport n'est pas}
+
+\begin{itemize}
+\item Pas X.
+\item Pas Y.
+\item Pas Z.
+\end{itemize}
+
+\end{document}

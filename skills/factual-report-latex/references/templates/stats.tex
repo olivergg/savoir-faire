@@ -1,0 +1,54 @@
+\documentclass[11pt,a4paper]{article}
+
+\newcommand{\reportTitle}{Stats -- titre court}
+\newcommand{\reportSubtitle}{Période YYYY-MM-DD -- YYYY-MM-DD}
+
+\input{preamble_teal.tex}
+
+\begin{document}
+
+\makeTealTitle
+  {Titre principal}
+  {Période d'analyse / périmètre}
+  {\noindent\begin{infobox}
+   \sffamily
+   \textbf{Objet} : ...\\[4pt]
+   \textbf{Source} : ...
+  \end{infobox}}
+
+\section*{Synthèse}
+
+\begin{infobox}[title=Chiffres clés,coltitle=white,colbacktitle=tealPrimary,
+                fonttitle=\bfseries\sffamily]
+\sffamily
+\begin{tabular}{@{}l@{\hspace{2em}}r@{}}
+Métrique 1                 & \textbf{N} \\
+Métrique 2                 & \textbf{N} \\
+\quad sous-catégorie A     & \textbf{N} \\
+\quad sous-catégorie B     & \textbf{N} \\
+\end{tabular}\\[6pt]
+\textbf{Détails qualitatifs} : sortir ici toute ligne dont la valeur droite
+serait trop longue pour rentrer dans le tabular ci-dessus.
+\end{infobox}
+
+\section*{Détail par catégorie}
+
+\rowcolors{2}{white}{tealPale}
+\begin{tabular}{lr}
+\rowcolor{tealPrimary}\textbf{\color{white}Catégorie} & \textbf{\color{white}Volume} \\
+Catégorie 1   & 10 \\
+Catégorie 2   & 7 \\
+Catégorie 3   & 3 \\
+\end{tabular}
+
+\section*{Observations factuelles}
+
+\begin{infobox}
+\sffamily
+\begin{enumerate}[leftmargin=*]
+\item Observation 1.
+\item Observation 2.
+\end{enumerate}
+\end{infobox}
+
+\end{document}

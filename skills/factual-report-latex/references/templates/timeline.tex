@@ -1,0 +1,68 @@
+\documentclass[11pt,a4paper]{article}
+
+\newcommand{\reportTitle}{Chronologie -- TICKET-XXX}
+\newcommand{\reportSubtitle}{Analyse factuelle des temps}
+
+\input{preamble_teal.tex}
+
+\begin{document}
+
+\makeTealTitle
+  {Ticket TICKET-XXX -- chronologie détaillée}
+  {Analyse factuelle des temps}
+  {\noindent\begin{infobox}
+   \sffamily
+   \textbf{Ticket} : \texttt{TICKET-XXX} -- \og résumé\fg{}\\[4pt]
+   \textbf{Rapporteur} : NOM \quad\textbullet\quad \textbf{Assigné} : NOM\\[4pt]
+   \textbf{Source} : Jira changelog + worklog \textbullet{} GitHub PRs.
+  \end{infobox}}
+
+\section*{Identification}
+
+\rowcolors{2}{white}{tealPale}
+\begin{tabular}{ll}
+\rowcolor{tealPrimary}\textbf{\color{white}Champ} & \textbf{\color{white}Valeur} \\
+Clé              & \texttt{TICKET-XXX} \\
+Résumé           & ... \\
+Création         & \textbf{YYYY-MM-DD HH:MM} \\
+Résolution       & \textbf{YYYY-MM-DD HH:MM} \\
+Due date Jira    & ... \\
+\end{tabular}
+
+\section*{Chronologie détaillée}
+
+\footnotesize
+\rowcolors{2}{white}{tealPale}
+\begin{longtable}{lp{3.5cm}p{8cm}}
+\rowcolor{tealPrimary}\textbf{\color{white}Date} & \textbf{\color{white}Acteur} & \textbf{\color{white}Événement} \\
+\endfirsthead
+\rowcolor{tealPrimary}\textbf{\color{white}Date} & \textbf{\color{white}Acteur} & \textbf{\color{white}Événement} \\
+\endhead
+YYYY-MM-DD HH:MM & NOM    & Événement 1. \\
+YYYY-MM-DD HH:MM & NOM    & Événement 2. \\
+\end{longtable}
+\normalsize
+
+\section*{Décomposition des temps}
+
+\rowcolors{2}{white}{tealPale}
+\begin{tabular}{lr}
+\rowcolor{tealPrimary}\textbf{\color{white}Phase} & \textbf{\color{white}Durée} \\
+Création $\rightarrow$ assignation     & X jours \\
+Assignation $\rightarrow$ PR ouverte   & X jours \\
+PR ouverte $\rightarrow$ première review & X jours \\
+Resolved $\rightarrow$ merge effectif  & X jours \\
+\rowcolor{tealBand}\textbf{Total}      & \textbf{X jours} \\
+\end{tabular}
+
+\section*{Observations factuelles}
+
+\begin{infobox}
+\sffamily
+\begin{enumerate}[leftmargin=*]
+\item Observation 1.
+\item Observation 2.
+\end{enumerate}
+\end{infobox}
+
+\end{document}

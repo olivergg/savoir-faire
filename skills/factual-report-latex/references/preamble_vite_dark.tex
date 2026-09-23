@@ -1,0 +1,192 @@
+% ════════════════════════════════════════════════════════
+%  PRÉAMBULE PARTAGÉ — Thème Vite Dark
+%  Usage : \input{preamble_vite_dark.tex} dans chaque rapport
+%  Moteur : tectonic (XeTeX) — compiler avec : tectonic <fichier>.tex
+% ════════════════════════════════════════════════════════
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[french]{babel}
+\usepackage[a4paper, margin=2.2cm, top=2.5cm, bottom=2.8cm, headheight=16pt]{geometry}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage[table]{xcolor}
+\usepackage{colortbl}
+\usepackage[most]{tcolorbox}
+\usepackage{titlesec}
+\usepackage{fancyhdr}
+\usepackage{hyperref}
+\usepackage{lmodern}
+\usepackage[activate=false,tracking=false,expansion=false,protrusion=false]{microtype}
+\usepackage{enumitem}
+\usepackage{graphicx}
+\usepackage{longtable}
+
+% ─── Palette Vite Dark ──────────────────────────────────────────────────────
+\definecolor{viteBg}{HTML}{1b1b1f}          % fond de page
+\definecolor{viteSurface}{HTML}{26262a}     % surface / carte
+\definecolor{viteSubtle}{HTML}{2f2f35}      % zèbre / surface secondaire
+\definecolor{viteBorder}{HTML}{3c3c43}      % bordures
+\definecolor{vitePurple}{HTML}{646cff}      % accent primaire
+\definecolor{vitePurpleGlow}{HTML}{3a3a6e}  % fond glow violet
+\definecolor{viteMagenta}{HTML}{bd34fe}     % dégradé start
+\definecolor{viteCyan}{HTML}{47caff}        % dégradé end / mono
+\definecolor{viteText}{HTML}{ebebef}        % texte principal
+\definecolor{viteTextMuted}{HTML}{9192a1}   % texte atténué
+\definecolor{viteGreen}{HTML}{4ade80}       % succès
+\definecolor{viteGreenBg}{HTML}{14291f}     % fond succès
+\definecolor{viteRed}{HTML}{f87171}         % erreur / alerte
+\definecolor{viteRedBg}{HTML}{2b1515}       % fond erreur
+\definecolor{viteAmber}{HTML}{fbbf24}       % avertissement
+\definecolor{viteAmberBg}{HTML}{272010}     % fond avertissement
+
+% ─── Page et texte foncés ───────────────────────────────────────────────────
+\pagecolor{viteBg}
+\color{viteText}
+
+\hypersetup{
+  colorlinks=true,
+  linkcolor=vitePurple,
+  urlcolor=viteCyan,
+  pdfborder={0 0 0},
+}
+
+% ─── Titres de sections ─────────────────────────────────────────────────────
+\titleformat{\section}
+  {\normalfont\large\bfseries\sffamily\color{viteText}}
+  {}
+  {0em}
+  {\textcolor{vitePurple}{\rule[-3pt]{4pt}{1.5em}}\hspace{8pt}}
+  [\vspace{1pt}\textcolor{vitePurple}{\titlerule[1pt]}]
+
+\titleformat{\subsection}
+  {\normalfont\normalsize\bfseries\sffamily\color{viteText}}
+  {}
+  {0em}
+  {\textcolor{viteMagenta}{\rule[-.25ex]{2pt}{0.9em}}\hspace{6pt}}
+
+\titlespacing*{\section}{0pt}{20pt}{10pt}
+\titlespacing*{\subsection}{0pt}{12pt}{4pt}
+
+% ─── En-tête / pied de page ─────────────────────────────────────────────────
+% Définir \reportTitle, \reportSubtitle, \reportDate avant \begin{document}
+\providecommand{\reportTitle}{Rapport}
+\providecommand{\reportSubtitle}{}
+\providecommand{\reportDate}{\today}
+
+\pagestyle{fancy}
+\fancyhf{}
+\renewcommand{\headrulewidth}{0pt}
+\fancyhead[L]{%
+  \footnotesize\sffamily\color{viteTextMuted}%
+  \textcolor{vitePurple}{\bfseries$\triangleright$}\quad\reportTitle}
+\fancyhead[R]{\footnotesize\sffamily\color{viteTextMuted}\reportDate}
+\fancyfoot[C]{%
+  \textcolor{viteBorder}{\rule{\linewidth}{0.4pt}}\\[2pt]%
+  \footnotesize\sffamily\color{viteTextMuted}\thepage}
+% Organisation name in footer/cover — \renewcommand{\reportorg}{...} after \input
+\newcommand{\reportorg}{Internal Report}
+\fancyfoot[R]{\footnotesize\sffamily\color{viteTextMuted}\reportorg}
+
+% ─── Boîtes ─────────────────────────────────────────────────────────────────
+\tcbset{
+  vitebase/.style={
+    enhanced, breakable, sharp corners,
+    left=10pt, right=10pt, top=7pt, bottom=7pt,
+    boxrule=0pt, frame hidden,
+    fontupper=\small\sffamily\color{viteText},
+  },
+  infobox/.style={
+    vitebase,
+    borderline west={3pt}{0pt}{vitePurple},
+    colback=vitePurpleGlow,
+  },
+  warnbox/.style={
+    vitebase,
+    borderline west={3pt}{0pt}{viteRed},
+    colback=viteRedBg,
+  },
+  successbox/.style={
+    vitebase,
+    borderline west={3pt}{0pt}{viteGreen},
+    colback=viteGreenBg,
+  },
+  notebox/.style={
+    vitebase,
+    borderline west={3pt}{0pt}{viteAmber},
+    colback=viteAmberBg,
+  },
+}
+
+\newenvironment{infobox}{\begin{tcolorbox}[infobox]}{\end{tcolorbox}}
+\newenvironment{warnbox}{\begin{tcolorbox}[warnbox]}{\end{tcolorbox}}
+\newenvironment{successbox}{\begin{tcolorbox}[successbox]}{\end{tcolorbox}}
+\newenvironment{notebox}{\begin{tcolorbox}[notebox]}{\end{tcolorbox}}
+% Same signature as teal's ticketbox, so templates work with both preambles
+\newtcolorbox{ticketbox}[2][]{
+  vitebase, borderline west={3pt}{0pt}{viteCyan}, colback=viteSurface,
+  title={#2}, coltitle=viteCyan, colbacktitle=viteSurface,
+  fonttitle=\bfseries\sffamily, #1
+}
+
+% ─── Tableaux ────────────────────────────────────────────────────────────────
+\newcommand{\headrow}{\rowcolor{viteSurface}}
+\newcommand{\thd}[1]{\textcolor{vitePurple}{\sffamily\bfseries\small #1}}
+
+% Tableau zèbre : fond page / fond subtle en alternance
+\newenvironment{zebratable}%
+  {\rowcolors{2}{viteBg}{viteSubtle}}%
+  {}
+
+% ─── Macros inline ──────────────────────────────────────────────────────────
+\newcommand{\crit}[1]{\textcolor{viteRed}{\bfseries #1}}
+\newcommand{\ok}[1]{\textcolor{viteGreen}{\bfseries #1}}
+\newcommand{\warn}[1]{\textcolor{viteAmber}{\bfseries #1}}
+\newcommand{\mono}[1]{\texttt{\color{viteCyan}#1}}
+\newcommand{\verfrom}[1]{\texttt{\color{viteTextMuted}\small #1}}
+\newcommand{\verto}[1]{\texttt{\color{vitePurple}\bfseries\small #1}}
+\newcommand{\badge}[1]{%
+  \colorbox{viteSurface}{\textcolor{vitePurple}{\sffamily\bfseries\footnotesize\,#1\,}}}
+\newcommand{\badgecrit}[1]{%
+  \colorbox{viteRedBg}{\textcolor{viteRed}{\sffamily\bfseries\footnotesize\,#1\,}}}
+\newcommand{\badgeok}[1]{%
+  \colorbox{viteGreenBg}{\textcolor{viteGreen}{\sffamily\bfseries\footnotesize\,#1\,}}}
+
+% Macros de mise en couleur (compatibilité croisée avec rapports existants)
+\newcommand{\cA}[1]{\textcolor{vitePurple}{\bfseries #1}}
+\newcommand{\cB}[1]{\textcolor{viteMagenta}{\bfseries #1}}
+\newcommand{\cC}[1]{\textcolor{viteCyan}{\bfseries #1}}
+\newcommand{\cG}[1]{\textcolor{viteGreen}{\bfseries #1}}
+\newcommand{\cO}[1]{\textcolor{viteAmber}{\bfseries #1}}
+\newcommand{\cT}[1]{\textcolor{viteCyan}{\bfseries #1}}
+\newcommand{\kw}[1]{\textcolor{vitePurple}{\bfseries #1}}
+
+% ─── Page de titre ───────────────────────────────────────────────────────────
+% Usage : \makeViteDarkTitle{Titre principal}{Sous-titre}{Contenu encart périmètre}
+\newcommand{\makeViteDarkTitle}[3]{%
+  \begin{tcolorbox}[
+    enhanced, sharp corners,
+    colback=viteSurface, colframe=viteBorder,
+    boxrule=0.6pt,
+    left=18pt, right=18pt, top=22pt, bottom=18pt,
+    borderline north={3pt}{0pt}{vitePurple},
+    borderline south={1pt}{0pt}{viteBorder},
+  ]
+    \sffamily\color{viteText}
+    {\footnotesize\textcolor{viteTextMuted}{\MakeUppercase{\reportorg}}}
+    \vspace{10pt}
+
+    {\fontsize{24}{28}\selectfont\bfseries
+      \textcolor{vitePurple}{#1}}
+
+    \vspace{4pt}
+    {\large\textcolor{viteTextMuted}{#2}}
+
+    \vspace{14pt}
+    \textcolor{viteBorder}{\rule{\linewidth}{0.4pt}}
+    \vspace{8pt}
+
+    {\small\color{viteText} #3}
+  \end{tcolorbox}
+  \vspace{20pt}
+}
