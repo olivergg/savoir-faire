@@ -14,9 +14,15 @@ npx skills add <source> -g --skill '*' -a claude-code github-copilot mistral-vib
 
 ## Update
 
-Edit here → commit → push → `npx skills update -g` (reuses the source recorded
-at install). Don't edit `~/.agents/skills` or install from a local path:
-neither is tracked for updates.
+Edit here → commit → push → update (reuses the source recorded at install):
+
+```bash
+npx skills update all-sessions-recap concise-output factual-report-latex guided-walkthrough jmh-microbench nrepl-runtime-audit session-secret-audit token-economy -g -y
+```
+
+`-g` alone updates *every* global skill, whatever the cwd — hence the names.
+Don't edit `~/.agents/skills` or install from a local path: neither is tracked
+for updates.
 
 ## Skills
 
