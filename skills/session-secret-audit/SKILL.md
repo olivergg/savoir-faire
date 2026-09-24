@@ -117,3 +117,12 @@ New secret shapes go in `PATTERNS` at the top of `scripts/scan_secrets.py` —
 `name -> (regex, severity)`. Keep regexes shape-based (prefix + length), never
 tied to one real value. Test a new pattern with `redact --dry-run` on a
 throwaway copy before trusting it against real sessions.
+
+## Scheduled scan (optional)
+
+`scripts/secret-audit.sh` runs `scan`, diffs against the last run, and only on
+change writes `~/.claude/secret-audit/report-<date>.txt` + a desktop
+notification. Deliberately not an agent: an LLM reading transcripts full of
+secrets is the leak this guards against. Daily via launchd:
+`cp scripts/com.savoir-faire.secret-audit.plist ~/Library/LaunchAgents/ &&
+launchctl load ~/Library/LaunchAgents/com.savoir-faire.secret-audit.plist`.
