@@ -6,8 +6,17 @@ dependency on another skill library.
 ## Install
 
 ```bash
-npx skills add olivergg/savoir-faire -g --skill <name>   # or --all
+npx skills add <source> -g --skill '*' -a claude-code github-copilot mistral-vibe -y
 ```
+
+- Public repo: `<source>` = `olivergg/savoir-faire`
+- Private repo: an SSH URL whose key has access, e.g. `git@github-olivergg:olivergg/savoir-faire.git`
+
+## Update
+
+Edit here → commit → push → `npx skills update -g` (reuses the source recorded
+at install). Don't edit `~/.agents/skills` or install from a local path:
+neither is tracked for updates.
 
 ## Skills
 
