@@ -21,3 +21,7 @@ npx skills add olivergg/savoir-faire -g --skill <name>   # or --all
 | `jmh-microbench` | Standalone JMH microbenchmarks |
 | `factual-report-latex` | French PDF reports in teal style via LaTeX/tectonic |
 | `session-secret-audit` | Scan session transcripts for leaked secrets |
+
+## License
+
+Apache-2.0 — see `LICENSE`.
