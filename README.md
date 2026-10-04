@@ -1,5 +1,7 @@
 # savoir-faire
 
+[![License: Apache-2.0](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](LICENSE)
+
 Personal, general-purpose agent skills. Self-contained: no shared config, no
 dependency on another skill library.
 
