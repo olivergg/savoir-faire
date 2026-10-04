@@ -1,6 +1,6 @@
 # Worked examples
 
-Two real benchmarks from a JSON-heavy endpoint perf pass (JSON round-trip removal). Copy the closer one and adapt field names/types rather than starting blank.
+Two worked benchmarks. Copy the closer one and adapt field names/types rather than starting blank.
 
 ## Example 1 — timing only: two ways to read a flat JSON field
 
@@ -127,7 +127,7 @@ public class RowMappingAllocBench
 }
 ```
 
-Real result (18-column version of this exact benchmark, matching a real DAO row shape): `viaIntermediateMap`
+Result (18-column version of this benchmark): `viaIntermediateMap`
 142.0 ns/op, 936 B/op allocated; `directToObject` 12.4 ns/op, 88 B/op allocated — ~10.6x more garbage
 and ~11.5x more time for the intermediate `Map`, 25 samples, tight CIs. Scales linearly with row
 count returned by the query.

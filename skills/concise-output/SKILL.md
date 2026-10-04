@@ -23,37 +23,27 @@ asked — asking "shorter?" after the fact wastes a round-trip.
 **Commit messages** — what + why, nothing else. No ceremony, no restating the diff line by line.
 1-2 lines per bullet max. Respect existing repo conventions (ticket number, prefixes) but
 strip everything not load-bearing.
-> "make the commit message more compact concise, less ceremony, explain the what and why, still
-> bullet list, but one or two lines max each"
 
 **Javadoc / docstrings** — say what isn't obvious from the signature; never restate the method
-name in prose. No "à rallonge" doc for simple/internal code — reserve real javadoc for public API
+name in prose. No lengthy doc for simple/internal code — reserve real javadoc for public API
 surfaces users actually need.
-> "rendre beaucoup plus concis la javadoc et les commentaires" / "Pas de javadoc à rallonge"
 
 **Code comments** — don't narrate what the code already says. Explanatory comments on
 non-obvious logic only, translated to English, 1-2 lines. Prefer compact modern-language idioms
 (var, switch expressions, streams) over verbose boilerplate — as long as readability doesn't
 suffer.
-> "trop de commentaires de code, pas assez concis et compact" / "rendre plus compact le code tout
-> en le laissant lisible et documenté"
 
 **Tests** — compact given/when/then style, English, one clear assertion block per case; merge
 near-duplicate test methods rather than stacking near-identical ones.
-> "rendre plus compact le tests, avoir given/when/then ?"
 
 **Conversational explanations / investigation reports** — lead with the answer. Bullet points
-over prose. State only what changed since last check ("si rien n'a changé, dis-le en une ligne").
-No AI-report verbosity/fluff ("pas de verbiage IA").
-> "Vraiment à l'essentiel stp, Bullet list, concis" / "this too much text, can we compress again"
+over prose. State only what changed since last check (nothing changed → say so in one line).
+No AI-report verbosity/fluff.
 
 **PR / Jira comments** — a few lines max, plain and factual, no filler intro/outro.
-> "commentaire...très concis" / "pas de fioriture stp"
 
 **Reports/documents (managerial, one-pagers, cheat sheets)** — must be skimmable in one pass: a
 single consolidated doc/table over scattered prose, clear/precise/concise/compact, no filler.
-> "consolider tout ça dans un seul document, clair, précis, concis, compact, compressé, sans
-> fioriture" / "fais un tableau, plus clair, plus concis"
 
 ## Apply by default
 

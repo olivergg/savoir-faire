@@ -10,7 +10,7 @@ npx skills add <source> -g --skill '*' -a claude-code github-copilot mistral-vib
 ```
 
 - Public repo: `<source>` = `olivergg/savoir-faire`
-- Private repo: an SSH URL whose key has access, e.g. `git@github-olivergg:olivergg/savoir-faire.git`
+- Private repo: an SSH URL whose key has access, e.g. `git@github.com:olivergg/savoir-faire.git`
 
 ## Update
 
