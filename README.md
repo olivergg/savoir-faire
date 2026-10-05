@@ -19,7 +19,7 @@ npx skills add <source> -g --skill '*' -a claude-code github-copilot mistral-vib
 Edit here → commit → push → update (reuses the source recorded at install):
 
 ```bash
-npx skills update all-sessions-recap concise-output factual-report-latex guided-walkthrough jmh-microbench nrepl-runtime-audit second-pass session-secret-audit token-economy -g -y
+npx skills update all-sessions-recap concise-output factual-report-latex guided-walkthrough jmh-microbench nrepl-runtime-audit second-pass session-secret-audit thought-experiment token-economy -g -y
 ```
 
 `-g` alone updates *every* global skill, whatever the cwd — hence the names.
@@ -34,6 +34,7 @@ for updates.
 | `concise-output` | Standing concise-output preference (prose, commits, docs) |
 | `second-pass` | Cut a first draft of code down — delete, reuse, hoist, compact — at equal behavior |
 | `token-economy` | Cut token spend during a session |
+| `thought-experiment` | Simulate a code scenario on paper to refute a hypothesis (Galileo → Popper) — manual: `/thought-experiment` |
 | `guided-walkthrough` | Step-by-step explanation with a pause after each step |
 | `nrepl-runtime-audit` | Verify a running JVM app's behavior via a Clojure nREPL |
 | `jmh-microbench` | Standalone JMH microbenchmarks |
