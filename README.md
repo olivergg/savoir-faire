@@ -19,7 +19,7 @@ npx skills add <source> -g --skill '*' -a claude-code github-copilot mistral-vib
 Edit here → commit → push → update (reuses the source recorded at install):
 
 ```bash
-npx skills update all-sessions-recap concise-output factual-report-latex guided-walkthrough jmh-microbench nrepl-runtime-audit second-pass session-secret-audit thought-experiment token-economy triple-check -g -y
+npx skills update all-sessions-recap concise-output factual-report-latex guided-walkthrough jmh-microbench nrepl-runtime-audit second-pass session-artifacts-cleanup session-secret-audit thought-experiment token-economy triple-check -g -y
 ```
 
 `-g` alone updates *every* global skill, whatever the cwd — hence the names.
@@ -41,6 +41,7 @@ for updates.
 | `jmh-microbench` | Standalone JMH microbenchmarks |
 | `factual-report-latex` | French PDF reports in teal style via LaTeX/tectonic |
 | `session-secret-audit` | Scan session transcripts for leaked secrets |
+| `session-artifacts-cleanup` | Archive obsolete files past sessions generated, traced via transcripts |
 
 ## License
 
