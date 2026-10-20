@@ -20,15 +20,19 @@ import shlex
 import shutil
 import subprocess
 import sys
+from collections.abc import Iterator
 from pathlib import Path
-from typing import Literal
+from typing import Literal, get_args
 
 Origin = Literal["written", "bash", "edited", "read", "none"]
-Suggestion = Literal["superseded?", "stale", "unknown", "keep", "tracked"]
+Suggestion = Literal["superseded?", "cache?", "stale", "unknown", "keep", "tracked"]
 
 PROJECTS = Path.home() / ".claude" / "projects"
 ARCHIVE = "_archive"
-SKIP_DIRS = {".git", "node_modules", "__pycache__", ".venv", ARCHIVE}
+SKIP = {".git", "node_modules", "__pycache__", ".venv", ".DS_Store", ARCHIVE}
+# usually regenerable output: one aggregated row instead of thousands of hashed/numbered files
+CACHE_DIRS = {"media", "partial_movie_files", "dist", "build", "target", "out",
+              ".cache", ".pytest_cache", ".mypy_cache", ".ruff_cache", ".next", ".gradle"}
 WRITE_TOOLS: dict[str, Origin] = {"Write": "written", "NotebookEdit": "edited", "Edit": "edited", "MultiEdit": "edited"}
 # strongest origin wins when an entry is touched several ways
 RANK: dict[Origin, int] = {"written": 4, "bash": 3, "edited": 2, "read": 1, "none": 0}
@@ -70,7 +74,7 @@ class Entry:
     def __init__(self, path: Path, root: Path) -> None:
         self.path, self.rel = path, path.relative_to(root).as_posix()
         self.is_dir = path.is_dir()
-        files = [f for f in path.rglob("*") if f.is_file() and not SKIP_DIRS & set(f.parts)] if self.is_dir else [path]
+        files = [f for f in path.rglob("*") if f.is_file() and not SKIP & set(f.parts)] if self.is_dir else [path]
         stats = [f.stat() for f in files]
         self.size = sum(s.st_size for s in stats)
         self.mtime = max((s.st_mtime for s in stats), default=path.stat().st_mtime)
@@ -91,12 +95,25 @@ class Entry:
             self.created_by = (ts, prompt)
 
 
+def walk(d: Path) -> Iterator[Path]:
+    """Files under d, cache dirs yielded whole instead of descended into."""
+    for p in sorted(d.iterdir()):
+        if p.name in SKIP:
+            continue
+        if p.is_dir():
+            yield from [p] if p.name in CACHE_DIRS else walk(p)
+        elif p.is_file():
+            yield p
+
+
 def entries_of(root: Path, recursive: bool) -> list[Entry]:
+    paths = walk(root) if recursive else (p for p in sorted(root.iterdir()) if p.name not in SKIP)
+    entries = [Entry(p, root) for p in paths]
     if recursive:
-        paths = [f for f in root.rglob("*") if f.is_file() and not SKIP_DIRS & set(f.relative_to(root).parts)]
-    else:
-        paths = [p for p in root.iterdir() if p.name not in SKIP_DIRS and p.name != ".DS_Store"]
-    entries = [Entry(p, root) for p in sorted(paths)]
+        # same name in two dirs (rapport-a/build.bb, rapport-b/build.bb) is two documents, not two versions
+        for e in entries:
+            if (parent := Path(e.rel).parent.as_posix()) != ".":
+                e.family = f"{parent}/{e.family}"
     # a file named after a sibling dir (rapport-x/ -> rapport-x-v3.html) is usually its build output
     dirs = sorted((e.family for e in entries if e.is_dir), key=len, reverse=True)
     for e in entries:
@@ -211,6 +228,8 @@ def suggest(entries: list[Entry], stale_days: int, git_files: set[Path]) -> dict
         idle = (now.timestamp() - max(e.mtime, used)) / 86400
         if is_tracked(e.path, git_files):
             out[e] = "tracked"
+        elif e.is_dir and e.path.name in CACHE_DIRS:
+            out[e] = "cache?"
         elif version(e) < newest[(e.family, e.is_dir)]:
             out[e] = "superseded?"
         elif e.origin == "none":
@@ -235,7 +254,7 @@ def cmd_inventory(a: argparse.Namespace) -> None:
     entries = entries_of(root, a.recursive)
     scan_sessions(root, entries)
     sug = suggest(entries, a.stale_days, tracked(root))
-    order = {"superseded?": 0, "stale": 1, "unknown": 2, "keep": 3, "tracked": 4}
+    order = {s: i for i, s in enumerate(get_args(Suggestion))}
     entries.sort(key=lambda e: (order[sug[e]], e.family, -e.mtime))
     rows = [{
         "entry": e.rel + ("/" if e.is_dir else ""), "suggest": sug[e], "origin": e.origin,

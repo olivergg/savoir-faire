@@ -34,6 +34,9 @@ metadata:
   script) and `rapport-x-final.html` (its output) land in the same family.
   Archive both or neither, because the output can't be rebuilt without the
   sources, and the sources alone aren't what people read.
+- **`cache?` is a name match, not proof.** A `media/` or `out/` dir can hold
+  real content. Check that its source exists (scenes, build script) before
+  calling it regenerable.
 - **Git-tracked files are refused** by `archive`, because git history already
   keeps them; suggest `git rm` instead if the user wants them gone.
 - **Don't read big files whole to judge them.** The `title` column and the
@@ -53,9 +56,9 @@ file, `--stale-days N` (default 30), `--json` for the raw rows. Columns:
 
 | Column | Meaning |
 |---|---|
-| `suggest` | `superseded?` (older version in a family) · `stale` (no mtime change nor real use for > N days) · `unknown` (no transcript trace) · `keep` · `tracked` (git) |
+| `suggest` | `superseded?` (older version in a family) · `cache?` (known build/cache dir: `media`, `dist`, `build`, `target`, `.cache`…, shown as one row, never descended) · `stale` (no mtime change nor real use for > N days) · `unknown` (no transcript trace) · `keep` · `tracked` (git) |
 | `origin` | strongest trace: `written` (Write tool) > `bash` (redirect/`-o`/`tee`) > `edited` > `read` > `none` |
-| `family` | name minus dates, `v2`, `final`, `draft`… ; build outputs take their source dir's family |
+| `family` | name minus dates, `v2`, `final`, `draft`… ; build outputs take their source dir's family; with `--recursive`, prefixed by the parent dir |
 | `sessions` / `last_touch` | how many sessions really used it, last date. Not counted: one Bash command reading ≥ 3 entries (`ls`, `head` loop, `grep -r`: a survey), and any read from a session that ran this script (cleanup inspecting candidates) |
 | `created_by` | first prompt of the session that wrote it, to recall why it exists |
 
