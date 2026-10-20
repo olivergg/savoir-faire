@@ -19,7 +19,7 @@ npx skills add <source> -g --skill '*' -a claude-code github-copilot mistral-vib
 Edit here → commit → push → update (reuses the source recorded at install):
 
 ```bash
-npx skills update all-sessions-recap concise-output factual-report-latex guided-walkthrough jmh-microbench nrepl-runtime-audit second-pass session-artifacts-cleanup session-secret-audit thought-experiment token-economy triple-check -g -y
+npx skills update all-sessions-recap concise-output factual-report-latex guided-walkthrough jmh-microbench nrepl-runtime-audit second-pass session-artifacts-cleanup session-secret-audit shoulders-of-giants thought-experiment token-economy triple-check -g -y
 ```
 
 `-g` alone updates *every* global skill, whatever the cwd — hence the names.
@@ -36,6 +36,7 @@ for updates.
 | `token-economy` | Cut token spend during a session |
 | `thought-experiment` | Simulate a code scenario on paper to refute a hypothesis (Galileo → Popper) — manual: `/thought-experiment` |
 | `triple-check` | Re-verify claims/changes from independent sources before acting, per-claim verification level — manual: `/triple-check` |
+| `shoulders-of-giants` | Online-only search for prior art in standards, papers, open books and reference OSS — sourced, time-tested, no hype — manual: `/shoulders-of-giants` |
 | `guided-walkthrough` | Step-by-step explanation with a pause after each step |
 | `nrepl-runtime-audit` | Verify a running JVM app's behavior via a Clojure nREPL |
 | `jmh-microbench` | Standalone JMH microbenchmarks |
