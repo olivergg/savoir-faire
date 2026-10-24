@@ -19,7 +19,7 @@ npx skills add <source> -g --skill '*' -a claude-code github-copilot mistral-vib
 Edit here → commit → push → update (reuses the source recorded at install):
 
 ```bash
-npx skills update all-sessions-recap concise-output factual-report-latex guided-walkthrough jmh-microbench nrepl-runtime-audit second-pass session-artifacts-cleanup session-secret-audit shoulders-of-giants thought-experiment token-economy triple-check -g -y
+npx skills update all-sessions-recap concise-output factual-report-latex guided-walkthrough jmh-microbench nrepl-runtime-audit pipeline-replay-viz second-pass session-artifacts-cleanup session-secret-audit shoulders-of-giants thought-experiment token-economy triple-check -g -y
 ```
 
 `-g` alone updates *every* global skill, whatever the cwd — hence the names.
@@ -39,6 +39,7 @@ for updates.
 | `shoulders-of-giants` | Online-only search for prior art in standards, papers, open books and reference OSS — sourced, time-tested, no hype — manual: `/shoulders-of-giants` |
 | `guided-walkthrough` | Step-by-step explanation with a pause after each step |
 | `nrepl-runtime-audit` | Verify a running JVM app's behavior via a Clojure nREPL |
+| `pipeline-replay-viz` | Replay real records through a data pipeline on a resettable bench, judge runs against the source's own truth, and show it as an offline before/after explorer + animated "machine" |
 | `jmh-microbench` | Standalone JMH microbenchmarks |
 | `factual-report-latex` | French PDF reports in teal style via LaTeX/tectonic |
 | `session-secret-audit` | Scan session transcripts for leaked secrets |
