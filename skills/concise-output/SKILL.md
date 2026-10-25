@@ -20,8 +20,8 @@ asked — asking "shorter?" after the fact wastes a round-trip.
 
 ## Rules by category
 
-**Commit messages** — what + why, nothing else. No ceremony, no restating the diff line by line.
-1-2 lines per bullet max. Respect existing repo conventions (ticket number, prefixes) but
+**Commit messages** — the bare change; a short why only if it looks wrong without it (revert,
+workaround, version pin), never guessed. No ceremony, no restating the diff line by line. 1-2 lines per bullet max. Respect existing repo conventions (ticket number, prefixes) but
 strip everything not load-bearing.
 
 **Javadoc / docstrings** — say what isn't obvious from the signature; never restate the method
