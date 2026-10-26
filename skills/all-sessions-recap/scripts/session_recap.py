@@ -15,6 +15,7 @@ import fnmatch
 import json
 import math
 import os
+import re
 import subprocess
 import sys
 from pathlib import Path
@@ -149,6 +150,9 @@ def pick_emoji(name: str) -> str:
 # ---------------------------------------------------------------------------
 # Parsing
 
+AWAY_HINT = re.compile(r"\s*\(disable recaps in /config\)\s*$")
+
+
 def parse_ts(ts: str) -> datetime.datetime:
     return datetime.datetime.fromisoformat(ts.replace("Z", "+00:00"))
 
@@ -157,12 +161,14 @@ class Session:
     def __init__(self, path: Path):
         self.path = path
         self.title: str | None = None
+        self.recap: str | None = None  # Claude Code's own "while you were away" recap, the last one
         self.cwd_counts: collections.Counter[str] = collections.Counter()
         self.git_branch: str | None = None
         self.first_ts: datetime.datetime | None = None
         self.last_ts: datetime.datetime | None = None
         self.user_count = 0
         self.assistant_count = 0
+        self.match: dict | None = None  # set by `search`: {"hits", "snippet"}
 
     @property
     def cwd(self) -> str | None:
@@ -194,6 +200,8 @@ def load_session(path: Path) -> Session | None:
                 t = d.get("type")
                 if t == "ai-title" and d.get("aiTitle"):
                     s.title = d["aiTitle"]
+                if t == "system" and d.get("subtype") == "away_summary" and isinstance(d.get("content"), str):
+                    s.recap = " ".join(AWAY_HINT.sub("", d["content"]).split()) or s.recap
                 if "cwd" in d:
                     s.cwd_counts[d["cwd"]] += 1
                 if d.get("gitBranch"):
@@ -492,7 +500,47 @@ def select_rows(root: Path, days: int, half_life: float, sort: str, limit: int |
     return rows, now
 
 
+def rows_json(rows, now, top_titles: int, git_status: bool, max_turns: int | None = None) -> str:
+    """Same rows as the text output; `max_turns` set (digest) adds each session's sampled turns."""
+    projects = []
+    for score, name, last_active, recent in rows:
+        sessions = []
+        for s in recent[:top_titles]:
+            one = {
+                "id": s.path.stem,
+                "title": s.title,
+                "recap": s.recap,
+                "branch": s.git_branch,
+                "ahead_behind": format_ahead_behind(s.cwd, s.git_branch) if git_status else None,
+                "last_ts": s.last_ts.isoformat(),
+                "age": relative_age(s.last_ts, now),
+                "messages": s.message_count,
+            }
+            if s.match:
+                one |= s.match
+            if max_turns is not None:
+                data = extract_human_turns(s.path, max_turns=max_turns)
+                one |= {k: data[k] for k in ("turns", "turns_total", "turns_omitted", "last_assistant_text")}
+                one["turns"] = [text for _, text in data["turns"]]
+            sessions.append(one)
+        projects.append({
+            "cwd": name,
+            "name": short_name(name),
+            "emoji": pick_emoji(name),
+            "score": round(score, 2),
+            "last_active": last_active.isoformat(),
+            "session_count": len(recent),
+            "sessions": sessions,
+        })
+    return json.dumps({"now": now.isoformat(), "projects": projects}, ensure_ascii=False)
+
+
 def cmd_recap(args: argparse.Namespace) -> None:
+    if args.json:
+        root = Path(args.root).expanduser()
+        rows, now = select_rows(root, args.days, args.half_life, args.sort, args.limit, resolve_ignore(args))
+        print(rows_json(rows, now, args.top_titles, not args.no_git_status))
+        return
     if args.topics:
         args.sort = "recent"
 
@@ -526,6 +574,9 @@ def cmd_digest(args: argparse.Namespace) -> None:
         sys.exit(f"root not found: {root}")
 
     rows, now = select_rows(root, args.days, args.half_life, args.sort, args.limit, resolve_ignore(args))
+    if args.json:
+        print(rows_json(rows, now, args.top_titles, not args.no_git_status, args.max_turns))
+        return
     if not rows:
         print(f"No sessions active in the last {args.days} day(s).")
         return
@@ -553,6 +604,68 @@ def cmd_digest(args: argparse.Namespace) -> None:
                 print(f"  last note: {data['last_assistant_text'][:300]}")
 
 
+def text_blocks(content) -> str:
+    if isinstance(content, str):
+        return content
+    if isinstance(content, list):
+        return " ".join(b.get("text", "") for b in content if isinstance(b, dict) and b.get("type") == "text")
+    return ""
+
+
+def search_session(s: Session, needle: str, width: int = 120) -> dict | None:
+    """Case-insensitive match on title, recap, human turns and assistant text
+    (tool calls/results and sidechains skipped); excerpt around the first hit."""
+    texts = [t for t in (s.title, s.recap) if t]
+    with s.path.open(errors="ignore") as fh:
+        for line in fh:
+            # Transcripts store UTF-8 raw, so a raw-line miss is a real miss: skips most json.loads.
+            if needle not in line.lower():
+                continue
+            try:
+                d = json.loads(line)
+            except json.JSONDecodeError:
+                continue
+            if d.get("isSidechain") or d.get("type") not in ("user", "assistant"):
+                continue
+            if d["type"] == "user" and (d.get("origin") or {}).get("kind") != "human":
+                continue
+            texts.append(text_blocks((d.get("message") or {}).get("content")))
+    hits = sum(t.lower().count(needle) for t in texts)
+    if not hits:
+        return None
+    first = next(" ".join(t.split()) for t in texts if needle in t.lower())
+    i = first.lower().index(needle)
+    start = max(0, i - width // 2)
+    snippet = ("…" if start else "") + first[start:start + width] + ("…" if start + width < len(first) else "")
+    return {"hits": hits, "snippet": snippet}
+
+
+def cmd_search(args: argparse.Namespace) -> None:
+    root = Path(args.root).expanduser()
+    if not root.exists():
+        sys.exit(f"root not found: {root}")
+    needle = args.text.lower()
+    rows, now = select_rows(root, args.days, args.half_life, "recent", None, resolve_ignore(args))
+    found = []
+    for score, name, last_active, recent in rows:
+        for s in recent:
+            s.match = search_session(s, needle)
+        matched = [s for s in recent if s.match]
+        if matched:
+            found.append((score, name, matched[0].last_ts, matched))
+    if args.json:
+        print(rows_json(found, now, args.top_titles, not args.no_git_status))
+        return
+    if not found:
+        print(f"No match for {args.text!r} in the last {args.days} day(s).")
+        return
+    for _, name, _, matched in found:
+        print(f"\n{short_name(name)}")
+        for s in matched[: args.top_titles]:
+            print(f"  {relative_age(s.last_ts, now):<8} {s.title or '(untitled)'}  · {s.path.stem}"
+                  f"\n           {s.match['hits']}× {s.match['snippet']}")
+
+
 def main() -> None:
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     sub = ap.add_subparsers(dest="cmd")
@@ -570,6 +683,7 @@ def main() -> None:
                           help="just the subjects: sort by last activity, no score/date/branch/msg-count noise")
     p_recap.add_argument("--plain", action="store_true", help="disable colors/emoji, raw text output")
     p_recap.add_argument("--no-ids", action="store_true", help="hide session ids at end of each line")
+    p_recap.add_argument("--json", action="store_true", help="machine-readable output")
     p_recap.add_argument("--no-git-status", action="store_true",
                           help="skip ahead/behind-vs-main git lookup (local refs only, but shells out per branch)")
     p_recap.add_argument("--ignore", action="append", metavar="GLOB",
@@ -596,6 +710,7 @@ def main() -> None:
     p_digest.add_argument("--limit", type=int, default=15, help="max number of projects (default: 15)")
     p_digest.add_argument("--sort", choices=["score", "recent"], default="score")
     p_digest.add_argument("--max-turns", type=int, default=6, help="turns sampled per session (default: 6)")
+    p_digest.add_argument("--json", action="store_true", help="machine-readable output")
     p_digest.add_argument("--no-git-status", action="store_true",
                            help="skip ahead/behind-vs-main git lookup (local refs only, but shells out per branch)")
     p_digest.add_argument("--ignore", action="append", metavar="GLOB",
@@ -603,6 +718,22 @@ def main() -> None:
                                 f"repeatable, added on top of DEFAULT_IGNORE ({DEFAULT_IGNORE})")
     p_digest.add_argument("--no-ignore", action="store_true", help="disable DEFAULT_IGNORE (still applies --ignore)")
     p_digest.set_defaults(func=cmd_digest)
+
+    p_search = sub.add_parser("search", help="sessions whose title, recap, human turns or assistant text contain TEXT")
+    p_search.add_argument("text", help="case-insensitive substring")
+    p_search.add_argument("--root", default=str(DEFAULT_ROOT), help="projects dir (default: ~/.claude/projects)")
+    p_search.add_argument("--days", type=int, default=14, help="only sessions active within N days (default: 14)")
+    p_search.add_argument("--half-life", type=float, default=HALF_LIFE_DAYS,
+                           help=f"score half-life in days (default: {HALF_LIFE_DAYS})")
+    p_search.add_argument("--top-titles", type=int, default=40, help="matches shown per project (default: 40)")
+    p_search.add_argument("--json", action="store_true", help="machine-readable output, as `recap --json` plus hits/snippet")
+    p_search.add_argument("--no-git-status", action="store_true",
+                           help="skip ahead/behind-vs-main git lookup (local refs only, but shells out per branch)")
+    p_search.add_argument("--ignore", action="append", metavar="GLOB",
+                           help="extra glob pattern to exclude (matched against cwd and its ~-shortened form); "
+                                f"repeatable, added on top of DEFAULT_IGNORE ({DEFAULT_IGNORE})")
+    p_search.add_argument("--no-ignore", action="store_true", help="disable DEFAULT_IGNORE (still applies --ignore)")
+    p_search.set_defaults(func=cmd_search)
 
     # `recap` is the default subcommand when none / only flags are given.
     argv = sys.argv[1:]
