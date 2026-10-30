@@ -1,13 +1,12 @@
 ---
 name: guided-walkthrough
 description: >-
-  Explain something complex ONE step at a time, pausing after each step for the user to
-  validate before continuing. Use when the user wants to *understand* a change, an
-  algorithm, a diagnosis, a design decision, or a piece of code — especially after you've
-  just built or investigated it, or before you implement it. Triggers: "explique pas à pas",
-  "explique étape par étape avec pause", "explique avant de faire", "guide-moi",
-  "explain step by step", "walk me through it", "one step at a time", "let me validate as
-  you go", "je veux comprendre en détail".
+  Use this skill when the user wants to *understand* something complex — a change, an
+  algorithm, a diagnosis, a design decision, a piece of code — especially right after
+  you built or investigated it, or before you implement it: explain ONE step at a time
+  and pause after each for them to validate. Also triggers for: explique pas à pas,
+  explique avant de faire, guide-moi, walk me through it, one step at a time, je veux
+  comprendre en détail.
 metadata:
   author: Olivier G
 ---

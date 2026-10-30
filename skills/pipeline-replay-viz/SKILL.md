@@ -1,17 +1,15 @@
 ---
 name: pipeline-replay-viz
 description: >-
-  Understand, explain or debug a multi-stage data pipeline (source → stream processing →
-  storage → service → UI) by replaying REAL captured inputs on a resettable local bench,
-  comparing each code version's outputs against the source's own ground truth, and
-  rendering it as two offline HTML tools: a before/after explorer (synchronized timelines,
-  per-item verdicts) and an animated "machine" that replays records station by station
-  with a fidelity check against the real stored rows. Use for "why does the data end up
-  like this", before/after a fix on an ingestion/ETL/Kafka/streaming chain, sessionization
-  or deduplication bugs, or to explain a pipeline visually to non-developers. Triggers:
-  rejouer les données, banc de rejeu, avant/après correctif, visualiser le flux, cheminement
-  de la donnée, machine animée, replay pipeline, data lineage visual, before/after fix,
-  stream processing debug, sessionization.
+  Use this skill when the user asks why data ends up the way it does after a
+  multi-stage pipeline (source → stream processing → storage → service → UI), wants
+  to prove a fix before/after on an ingestion/ETL/Kafka/streaming chain
+  (sessionization, deduplication…), or to explain a pipeline visually to
+  non-developers. Replays REAL captured inputs on a resettable local bench, checks
+  each code version against the source's ground truth, and renders two offline HTML
+  tools: a before/after explorer and an animated station-by-station replay. Also
+  triggers for: banc de rejeu, rejouer les données, avant/après correctif,
+  cheminement de la donnée, data lineage visual.
 metadata:
   author: Olivier G
 ---

@@ -1,11 +1,11 @@
 ---
 name: triple-check
 description: >-
-  Re-verify, from scratch and against independent sources, everything just claimed or
-  changed — findings, analyses, diffs, plans, procedures — before the user acts on it
-  (commit, push, post, delete, apply, share). Each claim gets a verification level; no
-  blanket "all good". Chains to /second-pass for code and /thought-experiment for what
-  can't be run. Manual only: /triple-check.
+  Use this skill when the user invokes /triple-check before acting on what was just
+  claimed or changed — findings, analyses, diffs, plans, procedures — prior to a commit,
+  push, post, delete, apply or share: re-verify everything from scratch against
+  independent sources, one verification level per claim, no blanket "all good". Chains
+  to /second-pass for code and /thought-experiment for what can't be run. Manual only.
 disable-model-invocation: true
 metadata:
   author: Olivier G

@@ -1,0 +1,35 @@
+{
+  "skill_name": "second-pass",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "On vient d'ajouter le parsing des options CLI dans tools/export.py, fais la passe habituelle avant le commit",
+      "expected_output": "A strictly behavior-preserving cut-down of the new code (delete, reuse, hoist, compact, name, comments last), tests/linter run before and after, and a short report grouped by pass with one 'why' per cut plus what was deliberately kept.",
+      "assertions": [
+        "Report is grouped by pass (Deleted / Reused / Hoisted / Compacted…) with a reason per cut",
+        "Tests or linter were run before and after, or their absence is stated explicitly",
+        "No behavior change, API change or unrelated bug fix folded into the cleanup",
+        "Mentions what was deliberately not touched, or that neighbouring code was checked for the same pattern"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "this new helper formatTimestamp(ts) I wrote — is there something existing we can reuse instead?",
+      "expected_output": "Searches the codebase/stdlib for an existing equivalent before keeping the helper; reuses it if found and checks for other call sites of the same pattern.",
+      "assertions": [
+        "Searches the codebase (and stdlib/framework) for an equivalent before deciding",
+        "If an equivalent exists, the helper is removed and callers use it",
+        "Looks for other places with the same pattern"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "compacte au max ce fichier de 40 lignes, même si ça devient un one-liner",
+      "expected_output": "Compacts while refusing to golf: readability stays the hard constraint, so no unreadable one-liner; explains the line it drew.",
+      "assertions": [
+        "Does not chain many transformations into one unreadable expression",
+        "Explains why some compression was declined (readability)"
+      ]
+    }
+  ]
+}

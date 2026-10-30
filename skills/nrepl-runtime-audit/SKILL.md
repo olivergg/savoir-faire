@@ -1,14 +1,13 @@
 ---
 name: nrepl-runtime-audit
 description: >-
-  Audit a running Java/Spring/Hibernate app's real behavior via a connected
-  Clojure nREPL and SQL debug logs — verify dependency versions, entity
-  mappings, N+1 regressions, and transaction wiring against real dev data,
-  going beyond what code diffs or unit tests alone can prove. TRIGGER when:
-  nREPL, live verification, runtime audit, connect nrepl, Clojure nrepl,
-  Hibernate statistics, N+1, verify live, verify in prod/dev, SQL debug log,
-  HHH warning, ground truth, empirical verification, migration regression,
-  master vs branch comparison, is this actually a bug.
+  Use this skill when a claim about a Java/Spring/Hibernate app needs proof from
+  the running app rather than from the diff or unit tests — is this N+1 real,
+  which dependency version is actually loaded, is this entity mapped or this
+  transaction wired as we think, did the migration regress vs master. Connects a
+  Clojure nREPL to the live dev app and reads SQL debug logs / Hibernate
+  statistics against real data. Also triggers for: nREPL, runtime audit, verify
+  live, HHH warning, ground truth, is this actually a bug.
 metadata:
   author: Olivier G
 ---

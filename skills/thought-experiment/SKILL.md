@@ -1,12 +1,12 @@
 ---
 name: thought-experiment
 description: >-
-  Run a thought experiment (Gedankenexperiment) on a code hypothesis: simulate a concrete
-  situation on paper — no execution, or only a separate, opt-in dry run — with the sole
-  aim of REFUTING the hypothesis. Never "confirms": a hypothesis that survives is only
-  corroborated. Rooted in Galileo, Einstein, Mach, Popper, Chamberlin/Platt. Use to test a
+  Use this skill when the user invokes /thought-experiment to test a code hypothesis — a
   bug theory, a fix, a concurrency/ordering assumption, an invariant, a migration or
-  design choice before (or instead of) running anything. Manual only: /thought-experiment.
+  design choice — before (or instead of) running anything: simulate a concrete situation
+  on paper (no execution, or only a separate, opt-in dry run) with the sole aim of
+  REFUTING it. Never "confirms": a hypothesis that survives is only corroborated.
+  Manual only.
 disable-model-invocation: true
 metadata:
   author: Olivier G

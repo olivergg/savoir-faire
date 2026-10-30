@@ -1,16 +1,13 @@
 ---
 name: second-pass
 description: >-
-  Re-read code you just produced and cut it down — delete, reuse, hoist, generalize,
-  compact — at strictly equivalent behavior, then look for the same win in the
-  neighbouring code. Run it by default before proposing a commit, and on request.
-  TRIGGER when: simplifie, simplifier, compacte, compresse, factorise, hoiste, inline,
-  mutualise, réutilise, généralise, allège, réduis le code, moins de méthodes,
-  trop verbeux, nettoyage habituel, clean leftovers, prends du recul, remets en question,
-  relis ce qu'on a fait, à fonctionnalité équivalente, minimize the diff, DRY,
-  over-engineered, simplify, compact it, compress the code, refactor, deduplicate,
-  reuse existing, is there something existing we can reuse, second pass, triple check
-  the code, quelque chose qu'on a raté.
+  Use this skill before proposing a commit of code you just wrote, and whenever the
+  user asks to simplify, compact or question it: re-read it and cut it down — delete,
+  reuse existing code, hoist, generalize, compact — at strictly equivalent behavior,
+  then look for the same win in the neighbouring code. Also triggers for: simplifie,
+  factorise, mutualise, allège, trop verbeux, nettoyage habituel, prends du recul,
+  relis ce qu'on a fait, minimize the diff, DRY, over-engineered, is there something
+  existing we can reuse.
 metadata:
   author: Olivier G
 ---

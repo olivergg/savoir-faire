@@ -1,6 +1,11 @@
 ---
 name: token-economy
-description: Reduces input/output token spend during a Claude Code session by combining terse replies, file+grep instead of raw tool-output dumps, subagent delegation for wide exploration, and compact tabular encoding only for inter-tool payloads. Use when user says "save tokens", "token economy", "reduce cost", "be efficient with tokens", invokes /token-economy, or the session involves large repos and verbose shell output (git log, mvn, grep across many files).
+description: >-
+  Use this skill when the user wants to cut token spend in a Claude Code session
+  ("save tokens", "reduce cost", /token-economy) or the session involves large repos
+  and verbose shell output (git log, mvn, grep across many files): terse replies,
+  file+grep instead of raw tool-output dumps, subagents for wide exploration, compact
+  tabular encoding only for inter-tool payloads.
 metadata:
   author: Olivier G
 ---

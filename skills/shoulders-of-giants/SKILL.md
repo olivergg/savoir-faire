@@ -1,12 +1,12 @@
 ---
 name: shoulders-of-giants
 description: >-
-  Before designing or coding something, research ONLINE ONLY how others already solved
-  the same problem — standards (RFC, W3C, ECMA, PEP/JEP), peer-reviewed papers, classic
-  open books, mature open-source reference implementations — and bring back sourced,
-  time-tested patterns, trade-offs and pitfalls instead of the hype of the moment. Open,
-  free sources only; every citation fetched and quoted, never from memory. Rooted in
-  Bernard of Chartres, Newton, Hamming, the Lindy effect. Manual only: /shoulders-of-giants.
+  Use this skill when the user invokes /shoulders-of-giants before designing or coding
+  something: research ONLINE ONLY how others already solved the same problem —
+  standards (RFC, W3C, ECMA, PEP/JEP), peer-reviewed papers, classic open books, mature
+  open-source reference implementations — and bring back sourced, time-tested patterns,
+  trade-offs and pitfalls instead of the hype of the moment. Open, free sources only;
+  every citation fetched and quoted, never from memory. Manual only.
 disable-model-invocation: true
 metadata:
   author: Olivier G

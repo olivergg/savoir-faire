@@ -1,0 +1,14 @@
+[
+  {"query": "c'est bon ça marche, prépare le commit", "should_trigger": true},
+  {"query": "simplifie ce qu'on vient d'écrire", "should_trigger": true},
+  {"query": "relis ce qu'on a fait, je trouve ça trop verbeux", "should_trigger": true},
+  {"query": "y a pas déjà un truc dans le projet qui fait ça ? on réinvente la roue là", "should_trigger": true},
+  {"query": "prends du recul sur ce diff, c'est over-engineered non ?", "should_trigger": true},
+  {"query": "minimize the diff before I open the PR", "should_trigger": true},
+  {"query": "rends ce message de commit plus court", "should_trigger": false},
+  {"query": "refactor the whole payment module to use the strategy pattern", "should_trigger": false},
+  {"query": "review the PR of my colleague on ocean-front", "should_trigger": false},
+  {"query": "fix the NPE in OrderService line 42", "should_trigger": false},
+  {"query": "vérifie tout ce que tu viens d'affirmer avant que je le poste sur Slack", "should_trigger": false},
+  {"query": "is this loop faster with streams or a for? measure it", "should_trigger": false}
+]

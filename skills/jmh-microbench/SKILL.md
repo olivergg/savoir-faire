@@ -1,13 +1,13 @@
 ---
 name: jmh-microbench
 description: >-
-  Measure CPU time and memory allocation of a targeted Java code path with a
-  standalone JMH microbenchmark, before deciding whether an optimization is
-  worth doing — no build-file changes to the target project, no full app
-  boot. Works against any Maven or Gradle Java project. Also triggers for:
-  JMH, microbenchmark, benchmark, perf test, allocation profiling, gc profiler,
-  gc.alloc.rate, -prof gc, measure performance, is X faster than Y, compare
-  two implementations, mesurer les perfs, comparer perf.
+  Use this skill when the user wants to know whether a Java optimization is
+  worth it, or which of two implementations is faster or allocates less —
+  measures CPU time and allocation of the targeted code path with a standalone
+  JMH microbenchmark, no build-file change to the target project and no app
+  boot. Works with any Maven or Gradle project. Also triggers for: JMH,
+  microbenchmark, -prof gc, gc.alloc.rate, is X faster than Y, mesurer les
+  perfs, comparer perf.
 metadata:
   author: Olivier G
 ---

@@ -1,16 +1,12 @@
 ---
 name: concise-output
 description: >-
-  Apply the user's standing preference for concise, low-fluff output —
-  commit messages, javadoc/docstrings, code comments, conversational
-  explanations, PR/Jira comments, and generated reports. This is a GLOBAL
-  preference for this user, not a one-off request: apply it by default when
-  writing any of the above, even if not explicitly asked this turn. TRIGGER
-  when: concis, concision, compact, compresse, raccourcis, réduis, condense,
-  synthétise, va à l'essentiel, sois bref, straight to the point, less
-  verbose, too long, no fluff, sans fioriture, pas de blabla, en une ligne,
-  TL;DR — or whenever about to write a commit message, javadoc, code comment,
-  PR/Jira comment, a chat explanation, or a report/document for this user.
+  Use this skill whenever about to write for this user — commit messages,
+  javadoc/docstrings, code comments, chat explanations, PR/Jira comments,
+  reports — because concise, low-fluff output is their standing GLOBAL
+  preference, applied by default even when not asked this turn. Also when they
+  ask to shorten something: concis, raccourcis, condense, synthétise, va à
+  l'essentiel, sois bref, pas de blabla, TL;DR, too long, no fluff.
 metadata:
   author: Olivier G
 ---

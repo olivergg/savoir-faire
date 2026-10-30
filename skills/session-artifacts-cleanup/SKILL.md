@@ -1,16 +1,14 @@
 ---
 name: session-artifacts-cleanup
 description: >-
-  Clean up a directory cluttered by files that past Claude Code sessions
-  generated — reports, drafts, notes, exports, build outputs now obsolete or
-  superseded. Cross-references session transcripts (~/.claude/projects/**)
-  with the disk to tell which session created each file and when it was last
-  used, groups versions of the same document, then archives (never deletes)
-  one group at a time with the user's sign-off; reversible via a manifest.
-  TRIGGER when: faire du ménage, nettoyer le dossier, rapports obsolètes,
-  vieux fichiers, fichiers générés par Claude, trier les fichiers, archiver,
-  ranger, clean up generated files, obsolete reports, stale drafts, declutter,
-  session artifacts, leftover files from past sessions, superseded versions.
+  Use this skill when the user wants to tidy a directory cluttered by files past
+  Claude Code sessions generated — reports, drafts, notes, exports, build outputs
+  now obsolete or superseded. Cross-references session transcripts
+  (~/.claude/projects/**) with the disk to tell which session made each file and
+  when it was last used, groups versions of the same document, then archives
+  (never deletes) one group at a time with sign-off, reversibly. Also triggers
+  for: faire du ménage, nettoyer le dossier, rapports obsolètes, ranger,
+  declutter, stale drafts.
 compatibility: Requires python3 ≥ 3.11 (stdlib only, no deps)
 metadata:
   author: Olivier G
