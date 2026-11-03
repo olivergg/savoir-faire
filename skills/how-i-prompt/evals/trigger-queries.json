@@ -1,0 +1,14 @@
+[
+  {"query": "montre-moi comment j'ai prompté pendant cette session", "should_trigger": true},
+  {"query": "sors-moi la liste exacte de mes prompts avec un résumé des réponses", "should_trigger": true},
+  {"query": "fais la timeline des prompts de la session d'hier sur oceanv3", "should_trigger": true},
+  {"query": "pour le débrief de l'atelier, il me faut l'historique des prompts de chaque participant", "should_trigger": true},
+  {"query": "how did I prompt in this session? give me every prompt verbatim", "should_trigger": true},
+  {"query": "export my prompt history for session 80c39196 as markdown", "should_trigger": true},
+  {"query": "j'aimerais revoir mes réponses aux QCM et ce que j'ai demandé, dans l'ordre", "should_trigger": true},
+  {"query": "sur quoi je bosse en ce moment, tous projets confondus ?", "should_trigger": false},
+  {"query": "fais un récap global de mes sessions de la semaine", "should_trigger": false},
+  {"query": "vérifie qu'aucun secret n'a fuité dans mes transcripts", "should_trigger": false},
+  {"query": "écris-moi un bon prompt pour générer des tests JUnit", "should_trigger": false},
+  {"query": "range les fichiers générés par les anciennes sessions", "should_trigger": false}
+]

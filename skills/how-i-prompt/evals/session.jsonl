@@ -1,0 +1,15 @@
+{"type":"user","cwd":"/Users/bob/proj","timestamp":"2026-10-31T09:00:00.000Z","message":{"role":"user","content":"fais le récap, écris à bob@example.com avec token=abc123 depuis /Users/bob/proj"}}
+{"type":"assistant","timestamp":"2026-10-31T09:00:05.000Z","message":{"role":"assistant","content":[{"type":"tool_use","id":"e1","name":"Edit","input":{"file_path":"/Users/bob/proj/a.py"}},{"type":"tool_use","id":"e2","name":"Edit","input":{"file_path":"/Users/bob/proj/a.py"}},{"type":"text","text":"Récap écrit."}]}}
+{"type":"user","isMeta":true,"timestamp":"2026-10-31T09:00:06.000Z","message":{"role":"user","content":"Base directory for this skill: /Users/bob/.claude/skills/x"}}
+{"type":"user","timestamp":"2026-10-31T09:00:07.000Z","message":{"role":"user","content":"<system-reminder>bruit du harnais</system-reminder>"}}
+{"type":"user","timestamp":"2026-10-31T09:01:00.000Z","message":{"role":"user","content":"<command-message>second-pass</command-message>\n<command-name>/second-pass</command-name>\n<command-args>sur le diff</command-args>"}}
+{"type":"assistant","timestamp":"2026-10-31T09:01:05.000Z","message":{"role":"assistant","content":[{"type":"tool_use","id":"q1","name":"AskUserQuestion","input":{}}]}}
+{"type":"user","timestamp":"2026-10-31T09:02:00.000Z","toolUseResult":{"answers":{"Langue ?":"Français"}},"message":{"role":"user","content":[{"type":"tool_result","tool_use_id":"q1","content":"The user answered"}]}}
+{"type":"attachment","timestamp":"2026-10-31T09:02:30.000Z","attachment":{"type":"queued_command","prompt":"et ajoute un test","origin":{"kind":"human"},"timestamp":"2026-10-31T09:02:30.000Z"}}
+{"type":"attachment","timestamp":"2026-10-31T09:02:40.000Z","attachment":{"type":"queued_command","prompt":"<task-notification>agent fini</task-notification>","origin":{"kind":"task"}}}
+{"type":"assistant","timestamp":"2026-10-31T09:03:00.000Z","message":{"role":"assistant","content":[{"type":"tool_use","id":"b1","name":"Bash","input":{"command":"rm -rf x"}}]}}
+{"type":"user","timestamp":"2026-10-31T09:03:10.000Z","toolUseResult":"The user doesn't want to proceed. To tell you how to proceed, the user said:\nfais plutôt une copie","message":{"role":"user","content":[{"type":"tool_result","tool_use_id":"b1","content":"rejected"}]}}
+{"type":"assistant","timestamp":"2026-10-31T09:04:00.000Z","message":{"role":"assistant","content":[{"type":"tool_use","id":"q2","name":"AskUserQuestion","input":{}}]}}
+{"type":"user","timestamp":"2026-10-31T09:04:30.000Z","toolUseResult":"The user wants to clarify. To tell you how to proceed, the user said:\nThe user wants to clarify these questions.\n    Questions asked:\n- \"Stack ?\"\n  Answer: grain\n- \"Port ?\"\n  (No answer provided)","message":{"role":"user","content":[{"type":"tool_result","tool_use_id":"q2","content":"rejected"}]}}
+{"type":"user","timestamp":"2026-10-31T09:05:00.000Z","message":{"role":"user","content":[{"type":"text","text":"[Request interrupted by user]"}]}}
+{"type":"user","isSidechain":true,"timestamp":"2026-10-31T09:05:10.000Z","message":{"role":"user","content":"prompt d'un sous-agent"}}
