@@ -1,6 +1,12 @@
 ---
 name: how-i-prompt
-description: Use this skill when the user wants the timeline of what a person actually typed during a Claude Code session — every prompt verbatim (typed prompts, slash commands, mid-turn messages, multiple-choice answers, refusals with feedback), each followed by a one-line summary of what the agent did — to study how people prompt, debrief a workshop, or review a session. Writes Markdown and JSON. Also triggers for: comment j'ai prompté, mes prompts, récap des prompts, timeline des prompts, historique de la session, how did I prompt, prompt history, session timeline.
+description: >-
+  Use this skill when the user wants the timeline of what a person actually typed during a
+  Claude Code session — every prompt verbatim (typed prompts, slash commands, mid-turn messages,
+  multiple-choice answers, refusals with feedback), each followed by a one-line summary of what
+  the agent did — to study how people prompt, debrief a workshop, or review a session. Writes
+  Markdown and JSON. Also triggers for: comment j'ai prompté, mes prompts, récap des prompts,
+  timeline des prompts, historique de la session, how did I prompt, prompt history, session timeline.
 metadata:
   author: Olivier G
 ---
