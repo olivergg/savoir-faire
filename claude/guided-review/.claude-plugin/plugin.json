@@ -1,0 +1,6 @@
+{
+  "name": "guided-review",
+  "version": "0.2.0",
+  "description": "Side pane showing Claude's explanation of the file under guided review",
+  "types": "./types/index.d.ts"
+}

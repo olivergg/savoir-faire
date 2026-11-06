@@ -1,3 +1,5 @@
 .cpcache/
 __pycache__/
 .DS_Store
+# Types the Claude Code engine lays in each mod on load
+claude/*/.claude-plugin/types/

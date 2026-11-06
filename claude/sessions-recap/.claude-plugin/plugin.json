@@ -1,0 +1,6 @@
+{
+  "name": "sessions-recap",
+  "version": "0.1.0",
+  "description": "A pane with the all-sessions-recap ranking: sortable, expandable, summaries on demand",
+  "types": "./types/index.d.ts"
+}

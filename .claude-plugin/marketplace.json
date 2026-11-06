@@ -1,0 +1,9 @@
+{
+  "name": "savoir-faire",
+  "owner": { "name": "Olivier G" },
+  "description": "Claude Code mods (panes, bands) that go with the savoir-faire skills",
+  "plugins": [
+    { "name": "guided-review", "source": "./claude/guided-review" },
+    { "name": "sessions-recap", "source": "./claude/sessions-recap" }
+  ]
+}
