@@ -46,6 +46,24 @@ for updates.
 | `session-secret-audit` | Scan session transcripts for leaked secrets |
 | `session-artifacts-cleanup` | Archive obsolete files past sessions generated, traced via transcripts |
 
+## Mods (Claude Code)
+
+`claude/` holds Claude Code mods (plugins with panes and bands), listed by this repo's
+`.claude-plugin/marketplace.json`. Install:
+
+```bash
+claude plugin marketplace add olivergg/savoir-faire
+claude plugin install guided-review@savoir-faire
+claude plugin install sessions-recap@savoir-faire
+```
+
+Update: edit here → commit → push → `claude plugin update <mod>@savoir-faire`, then `/reload-plugins`.
+
+| Mod | Use |
+|-----|-----|
+| `guided-review` | Side pane with the why/what of the file under guided review, nav band above the prompt |
+| `sessions-recap` | Pane ranking your sessions across projects (needs the `all-sessions-recap` skill) |
+
 ## License
 
 Apache-2.0 — see `LICENSE`.
